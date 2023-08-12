@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;700"
+    />
+    <style>
+      body {
+        font-family: "Source Sans 3", sans-serif;
+      }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body></body>
+  <!-- Logic -->
+  <script src="./logic/calculateHappinessScore.js"></script>
+  <script src="./logic/delay.js"></script>
+  <script src="./logic/reset.js"></script>
+  <script src="./logic/submit.js"></script>
+  <script src="./logic/uuid.js"></script>
+  <script src="./logic/visibility.js"></script>
+  <!-- Screens -->
+  <script src="./screens/form.js"></script>
+  <script src="./screens/progressUpdate.js"></script>
+  <script src="./screens/locationSelection.js"></script>
+
+  <script>
+    localStorage.setItem("selectedLocation", null); // Updated on the location selection screen
+    
+    localStorage.setItem("options", [
+      "terrible",
+      "bad",
+      "neutral",
+      "good",
+      "great",
+    ]);
+    
+    var isCurrentlySubmitting = false;
+    
+    var locationScreen = locationSelection(
+      ["Auckland", "Wellington", "Melbourne"],
+      "bg-sky-100"
+    );
+    
+    var formScreen = form();
+    
+    var loadingScreen = progressUpdate(
+      "loading-screen",
+      "bg-rose-600",
+      "Delivering...",
+      "Your feedback is on it's way!",
+      "./assets/alerts/loading.png",
+      "rotate-0"
+    );
+    
+    var successScreen = progressUpdate(
+      "success-screen",
+      "bg-green-600",
+      "Success!",
+      "Thanks for sharing your feedback.",
+      "./assets/alerts/success.png",
+      "rotate-0"
+    );
+
+    var errorScreen = progressUpdate(
+      "error-screen",
+      "bg-red-600",
+      "Something went wrong!",
+      "It's not you, it's us.",
+      "./assets/alerts/error.png",
+      "rotate-0"
+    );
+
+    var body = document.getElementsByTagName("body")[0];
+    
+    body.appendChild(locationScreen);
+    body.appendChild(formScreen);
+    body.appendChild(loadingScreen);
+    body.appendChild(successScreen);
+    body.appendChild(errorScreen);
+  </script>
+</html>
