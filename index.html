@@ -28,24 +28,24 @@
 
   <script>
     localStorage.setItem("selectedLocation", null); // Updated on the location selection screen
-    
+
     localStorage.setItem("options", [
-      "terrible",
-      "bad",
-      "neutral",
-      "good",
       "great",
+      "good",
+      "neutral",
+      "bad",
+      "terrible",
     ]);
-    
+
     var isCurrentlySubmitting = false;
-    
+
     var locationScreen = locationSelection(
       ["Auckland", "Wellington", "Melbourne"],
       "bg-sky-100"
     );
-    
+
     var formScreen = form();
-    
+
     var loadingScreen = progressUpdate(
       "loading-screen",
       "bg-rose-600",
@@ -54,7 +54,7 @@
       "./assets/alerts/loading.png",
       "rotate-0"
     );
-    
+
     var successScreen = progressUpdate(
       "success-screen",
       "bg-green-600",
@@ -74,7 +74,7 @@
     );
 
     var body = document.getElementsByTagName("body")[0];
-    
+
     body.appendChild(locationScreen);
     body.appendChild(formScreen);
     body.appendChild(loadingScreen);
