@@ -2,7 +2,7 @@
 
 Hey team! Here's my first attempt for the feedback app. 
 
-[Frontend](https://sinclair-codes.github.io/xero-social-feedback/), [Google Form](https://docs.google.com/forms/d/1uRssrF8Birzh4sxC7GohjIYjmgSXeMmmLfgSJ82v4u0), [Google Form Responses](https://docs.google.com/spreadsheets/d/181V5pCkThsCrQfQHn68ytIbygCfg_Mdy7TdHL5oHfNE).
+[Frontend](https://github.dev.xero.com/pages/Xero/social-feedback/), [Google Form](https://docs.google.com/forms/d/1uRssrF8Birzh4sxC7GohjIYjmgSXeMmmLfgSJ82v4u0), [Google Form Responses](https://docs.google.com/spreadsheets/d/181V5pCkThsCrQfQHn68ytIbygCfg_Mdy7TdHL5oHfNE).
 
 Feel free to give it a try!
 
