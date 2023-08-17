@@ -2,7 +2,7 @@ function locationSelection(locationOptions, tailwindBgColor) {
   // Main div for bg color, full screen
   var locationSelectionScreen = document.createElement("div");
   locationSelectionScreen.id = "location-selection";
-  locationSelectionScreen.className = `absolute h-screen w-screen ${tailwindBgColor} flex flex-col items-center justify-center space-y-8`;
+  locationSelectionScreen.className = `p-16 absolute min-h-screen w-full ${tailwindBgColor} flex flex-col items-center justify-center space-y-8`;
 
   // Div to hold the location buttons
   var locationButtonGroup = document.createElement("div");
