@@ -15,7 +15,9 @@ function emojiLabel(emojiName) {
   newLabel.id = `label-${emojiName}`;
   newLabel.htmlFor = emojiName;
   newLabel.className = `max-w-32 max-h-32 transition-opacity transition-scale opacity-50 hover:opacity-100 peer-checked/${emojiName}:opacity-100 hover:scale-125 peer-checked/${emojiName}:scale-125 peer-checked/${emojiName}:scale-150 cursor-pointer`; // Set the class attribute
-  newLabel.addEventListener("click", submit);
+  newLabel.addEventListener("click", () => {
+    submit(emojiName);
+  });
   return newLabel;
 }
 

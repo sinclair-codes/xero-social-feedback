@@ -1,19 +1,17 @@
-function getCurrentlySelectedEmojiRadioInput() {
-  return document.querySelector('input[name="emoji-radio-input"]:checked');
+function getRadioInput(emojiName) {
+  // Get the radio input element
+  return document.getElementById(emojiName);
 }
 
-async function submit() {
+async function submit(emojiName) {
   if (isCurrentlySubmitting) {
     return; // Only submit one response at a time.
   }
   isCurrentlySubmitting = true;
   console.log("Submitting form...");
 
-  await emojiSelectionDelay();
-  hide(formScreen);
-  show(loadingScreen);
+  var selectedEmojiRadioInput = getRadioInput(emojiName);
 
-  var selectedEmojiRadioInput = getCurrentlySelectedEmojiRadioInput();
   var prefix =
     "https://docs.google.com/forms/d/e/1FAIpQLSe6R9kxZOIQTu9jkGmZ3XDaENzwPBpdazybYX6puPOqGnbfow/formResponse?&submit=Submit?";
   var googleFormFields = [
@@ -28,12 +26,9 @@ async function submit() {
   // response not currently used as it does not contain any useful info
   const response = await fetch(url, { mode: "no-cors" });
 
-  await progressUpdateScreenDelay();
-  hide(loadingScreen);
   console.log(
     "Always displaying success message because of no-cors requirement from google forms."
   );
-  show(successScreen);
 
   // It would be a better idea to implement conditional success / failure
   // handling when the response is not no-cors. This is only possible with server-side auth somewhere.
@@ -47,8 +42,11 @@ async function submit() {
   //   show(errorScreen);
   //   console.error("Request failed:", response.status);
   // }
+  show(successScreen);
+  hide(formScreen);
+  isCurrentlySubmitting = false;
+  selectedEmojiRadioInput.checked = false; // Uncheck the currently selected emoji
   await progressUpdateScreenDelay();
-  resetForm();
+  hide(successScreen);
+  show(formScreen);
 }
-
-async function handleSubmit(url) {}
