@@ -19,7 +19,6 @@
   <!-- Logic -->
   <script src="./logic/calculateHappinessScore.js"></script>
   <script src="./logic/delay.js"></script>
-  <script src="./logic/reset.js"></script>
   <script src="./logic/submit.js"></script>
   <script src="./logic/uuid.js"></script>
   <script src="./logic/visibility.js"></script>
@@ -48,40 +47,17 @@
     );
     
     var formScreen = form(promptString);
-    
-    var loadingScreen = progressUpdate(
-      "loading-screen",
-      "bg-rose-600",
-      "Delivering...",
-      "Your feedback is on it's way!",
-      "./assets/alerts/loading.png",
-      "rotate-0"
-    );
+
+    var body = document.getElementsByTagName("body")[0];
     
     var successScreen = progressUpdate(
       "success-screen",
       "bg-green-600",
       "Success!",
-      "Thanks for sharing your feedback.",
       "./assets/alerts/success.png",
-      "rotate-0"
     );
-
-    var errorScreen = progressUpdate(
-      "error-screen",
-      "bg-red-600",
-      "Something went wrong!",
-      "It's not you, it's us.",
-      "./assets/alerts/error.png",
-      "rotate-0"
-    );
-
-    var body = document.getElementsByTagName("body")[0];
-    
+    body.appendChild(successScreen);
     body.appendChild(locationScreen);
     body.appendChild(formScreen);
-    body.appendChild(loadingScreen);
-    body.appendChild(successScreen);
-    body.appendChild(errorScreen);
   </script>
 </html>
