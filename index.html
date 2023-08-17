@@ -27,6 +27,9 @@
   <script src="./screens/locationSelection.js"></script>
 
   <script>
+    var params = new URLSearchParams(window.location.search)
+    promptString = params.get("prompt")
+
     localStorage.setItem("selectedLocation", null); // Updated on the location selection screen
     
     localStorage.setItem("options", [
@@ -42,7 +45,7 @@
       "bg-sky-100"
     );
     
-    var formScreen = form();
+    var formScreen = form(promptString);
     
     var loadingScreen = progressUpdate(
       "loading-screen",

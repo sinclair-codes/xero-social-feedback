@@ -28,7 +28,7 @@ function emojiImage(emojiName) {
   return newImage;
 }
 
-function form() {
+function form(promptString) {
   // Create the background
   const formScreen = document.createElement("div");
   formScreen.id = "form-screen";
@@ -44,7 +44,7 @@ function form() {
   // Create the header of the form
   var header = document.createElement("h1");
   header.className = "text-white text-5xl text-center font-bold";
-  header.innerText = "How is this social?";
+  header.innerText = promptString;
   form.appendChild(header);
 
   // Create the
