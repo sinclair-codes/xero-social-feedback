@@ -3,7 +3,7 @@ function getRadioInput(emojiName) {
   return document.getElementById(emojiName);
 }
 
-async function submit(emojiName) {
+async function submit(googleFormId, emojiName) {
   if (isCurrentlySubmitting) {
     return; // Only submit one response at a time.
   }
@@ -12,8 +12,7 @@ async function submit(emojiName) {
 
   var selectedEmojiRadioInput = getRadioInput(emojiName);
 
-  var prefix =
-    "https://docs.google.com/forms/d/e/1FAIpQLSe6R9kxZOIQTu9jkGmZ3XDaENzwPBpdazybYX6puPOqGnbfow/formResponse?&submit=Submit?";
+  var prefix = `https://docs.google.com/forms/d/e/${googleFormId}/formResponse?&submit=Submit?`;
   var googleFormFields = [
     `&entry.1935440836=${localStorage.getItem("options")}`, // Selection Options
     `&entry.498218418=${selectedEmojiRadioInput.id}`, // Response name

@@ -28,9 +28,23 @@
   <script src="./screens/locationSelection.js"></script>
 
   <script>
-    var params = new URLSearchParams(window.location.search)
-    promptString = params.get("prompt")
+    function extractGoogleFormId(googleFormUrl){
+      const match = googleFormUrl.match(/\/e\/([^\/]+)/);
 
+      if (match && match[1]) { // If there is a match
+        const googleFormId = match[1];
+        console.log('Extracted form id:', googleFormId);
+        return googleFormId;
+      } else {
+        alert('Google form ID not found in provided URL');
+      }
+    }
+    var params = new URLSearchParams(window.location.search)
+    var promptString = params.get("prompt")
+    var googleFormUrl = params.get("googleFormUrl")
+    // Extract the value using a regular expression
+    var googleFormId = extractGoogleFormId(googleFormUrl)
+    
     localStorage.setItem("selectedLocation", null); // Updated on the location selection screen
     
     localStorage.setItem("options", [
@@ -46,7 +60,7 @@
       "bg-sky-100"
     );
     
-    var formScreen = form(promptString);
+    var formScreen = form(googleFormId, promptString);
 
     var body = document.getElementsByTagName("body")[0];
     
