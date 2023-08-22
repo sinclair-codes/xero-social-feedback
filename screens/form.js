@@ -9,14 +9,14 @@ function emojiRadioInput(emojiName, value) {
   return emojiRadioInput;
 }
 
-function emojiLabel(googleFormUrl, emojiName, prompt) {
+function emojiLabel(emojiName) {
   // The label to be shown. Has more flexibility in styling than the radioInput.
   var newLabel = document.createElement("label");
   newLabel.id = `label-${emojiName}`;
   newLabel.htmlFor = emojiName;
-  newLabel.className = `max-w-32 max-h-32 transition-opacity transition-scale opacity-50 hover:opacity-100 peer-checked/${emojiName}:opacity-100 hover:scale-125 peer-checked/${emojiName}:scale-125 peer-checked/${emojiName}:scale-150 cursor-pointer`; // Set the class attribute
+  newLabel.className = `max-w-32 max-h-32 transition-opacity transition-scale opacity-75 peer-checked/${emojiName}:opacity-100 peer-checked/${emojiName}:scale-150 cursor-pointer`; // Set the class attribute
   newLabel.addEventListener("click", () => {
-    submit(googleFormUrl, emojiName, prompt);
+    submit(emojiName);
   });
   return newLabel;
 }
@@ -30,7 +30,7 @@ function emojiImage(emojiName) {
   return newImage;
 }
 
-function form(googleFormUrl, prompt) {
+function form() {
   // Create the background
   const formScreen = document.createElement("div");
   formScreen.id = "form-screen";
@@ -46,7 +46,7 @@ function form(googleFormUrl, prompt) {
   // Create the header of the form
   var header = document.createElement("h1");
   header.className = "text-white text-5xl text-center font-bold";
-  header.innerText = prompt;
+  header.innerText = localStorage.getItem("providedPrompt");
   form.appendChild(header);
 
   // Create the
@@ -60,7 +60,7 @@ function form(googleFormUrl, prompt) {
 
   for (var idx = 0; idx < options.length; idx++) {
     var currentEmojiName = options[idx];
-    var currentEmojiLabel = emojiLabel(googleFormUrl, currentEmojiName, prompt);
+    var currentEmojiLabel = emojiLabel(currentEmojiName);
     emojiFieldSet.appendChild(
       emojiRadioInput(
         currentEmojiName,

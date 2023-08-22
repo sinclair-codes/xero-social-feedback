@@ -1,5 +1,7 @@
-function locationSelection(locationOptions, tailwindBgColor) {
+function locationSelection(tailwindBgColor) {
   // Main div for bg color, full screen
+  var locationOptions = localStorage.getItem("locationOptions").split(",");
+  console.log(locationOptions);
   var locationSelectionScreen = document.createElement("div");
   locationSelectionScreen.id = "location-selection";
   locationSelectionScreen.className = `p-16 absolute min-h-screen w-full ${tailwindBgColor} flex flex-col items-center justify-center space-y-8`;
@@ -11,6 +13,8 @@ function locationSelection(locationOptions, tailwindBgColor) {
 
   // Loop to add each option as a button
   locationOptions.forEach((locationOption) => {
+    // replace ; with , for display
+    locationOption = locationOption.replace(";", ",");
     var locationButton = document.createElement("div");
     locationButton.className =
       "bg-sky-500 hover:bg-sky-700 text-white font-bold p-8 w-full rounded-2xl";
@@ -20,7 +24,6 @@ function locationSelection(locationOptions, tailwindBgColor) {
       // add to local storage
       localStorage.setItem("selectedLocation", locationOption);
       hide(locationSelectionScreen);
-      show(formScreen);
     };
 
     // Add the text to each button

@@ -3,7 +3,7 @@ function getRadioInput(emojiName) {
   return document.getElementById(emojiName);
 }
 
-async function submit(googleFormId, emojiName, prompt) {
+async function submit(emojiName) {
   if (isCurrentlySubmitting) {
     return; // Only submit one response at a time.
   }
@@ -12,14 +12,16 @@ async function submit(googleFormId, emojiName, prompt) {
 
   var selectedEmojiRadioInput = getRadioInput(emojiName);
 
-  var prefix = `https://docs.google.com/forms/d/e/${googleFormId}/formResponse?&submit=Submit?`;
+  var prefix = `https://docs.google.com/forms/d/e/${localStorage.getItem(
+    "googleFormId"
+  )}/formResponse?&submit=Submit?`;
   var googleFormFields = [
     `&entry.1935440836=${localStorage.getItem("options")}`, // Selection Options
     `&entry.498218418=${selectedEmojiRadioInput.id}`, // Response name
     `&entry.1633997278=${selectedEmojiRadioInput.value}`, // Happiness Score
     `&entry.2128993084=${createOrRetrieveUUID()}`, // Device Fingerprint
     `&entry.202822596=${localStorage.getItem("selectedLocation")}`, // Location
-    `&entry.547368457=${prompt}`, // Prompt
+    `&entry.547368457=${localStorage.getItem("providedPrompt")}`, // Prompt
   ];
   console.log("Submitting form with fields:", googleFormFields);
   var url = prefix + googleFormFields.join("");
@@ -42,11 +44,7 @@ async function submit(googleFormId, emojiName, prompt) {
   //   show(errorScreen);
   //   console.error("Request failed:", response.status);
   // }
-  show(successScreen);
-  hide(formScreen);
+  await progressUpdateScreenDelay();
   isCurrentlySubmitting = false;
   selectedEmojiRadioInput.checked = false; // Uncheck the currently selected emoji
-  await progressUpdateScreenDelay();
-  hide(successScreen);
-  show(formScreen);
 }

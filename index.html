@@ -5,7 +5,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;700"
     />
-    <link rel="icon" type="image/x-icon" href="./assets/favicon/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="./assets/favicon/favicon.svg" />
     <style>
       body {
         font-family: "Source Sans 3", sans-serif;
@@ -24,54 +24,80 @@
   <script src="./logic/visibility.js"></script>
   <!-- Screens -->
   <script src="./screens/form.js"></script>
-  <script src="./screens/progressUpdate.js"></script>
   <script src="./screens/locationSelection.js"></script>
-
+  <script src="./screens/textInput.js"></script>
   <script>
-    function extractGoogleFormId(googleFormUrl){
+    function extractGoogleFormId(googleFormUrl) {
       const match = googleFormUrl.match(/\/e\/([^\/]+)/);
 
-      if (match && match[1]) { // If there is a match
+      if (match && match[1]) {
+        // If there is a match
         const googleFormId = match[1];
-        console.log('Extracted form id:', googleFormId);
+        console.log("Extracted form id:", googleFormId);
         return googleFormId;
       } else {
-        alert('Google form ID not found in provided URL');
+        alert("Google form ID not found in provided URL");
       }
     }
-    var params = new URLSearchParams(window.location.search)
-    var promptString = params.get("prompt")
-        var googleFormUrl = params.get("googleFormUrl")
-    // Extract the value using a regular expression
-    var googleFormId = extractGoogleFormId(googleFormUrl)
-    
-    localStorage.setItem("selectedLocation", null); // Updated on the location selection screen
-    
-    localStorage.setItem("options", [
-      "bad",
-      "neutral",
-      "good",
-    ]);
-    
+
+    localStorage.setItem("options", ["bad", "neutral", "good"]);
+
     var isCurrentlySubmitting = false;
-    
-    var locationScreen = locationSelection(
-      ['Brisbane, AU', 'Canberra, AU', 'Melbourne, AU', 'Perth, AU', 'Sydney, AU', 'Toronto, CA', 'Hong Kong, HK', 'Auckland, NZ', 'Napier, NZ', 'Wellington, NZ', 'Cape Town, SA', 'Singapore, SG', 'London, UK', 'Manchester, UK', 'Milton Keynes, UK', 'Denver, USA', 'New York, USA', 'San Francisco, USA'],
-      "bg-sky-100"
-    );
-    
-    var formScreen = form(googleFormId, prompt);
+    localStorage.setItem("locationOptions", [
+      "Brisbane; AU",
+      "Canberra; AU",
+      "Melbourne; AU",
+      "Perth; AU",
+      "Sydney; AU",
+      "Toronto; CA",
+      "Hong Kong; HK",
+      "Auckland; NZ",
+      "Napier; NZ",
+      "Wellington; NZ",
+      "Cape Town; SA",
+      "Singapore; SG",
+      "London; UK",
+      "Manchester; UK",
+      "Milton Keynes; UK",
+      "Denver; USA",
+      "New York; USA",
+      "San Francisco; USA",
+    ]);
+    var locationScreen = locationSelection("bg-sky-100");
 
     var body = document.getElementsByTagName("body")[0];
-    
-    var successScreen = progressUpdate(
-      "success-screen",
-      "bg-green-600",
-      "Success!",
-      "./assets/alerts/success.png",
+
+    var googleFormUrlScreen = textInput(
+      "google-form-url-screen",
+      "bg-sky-500",
+      "Google Form URL",
+      "assets/guides/placeholder_guide.png",
+      "https://<form-url-here>",
+      function (providedGoogleFormUrl) {
+        localStorage.setItem("googleFormUrl", providedGoogleFormUrl);
+        console.log("googleFormUrl updated to:", providedGoogleFormUrl);
+        const googleFormId = extractGoogleFormId(providedGoogleFormUrl);
+        localStorage.setItem("googleFormId", googleFormId);
+        console.log("googleFormId updated to:", googleFormId);
+      }
     );
-    body.appendChild(successScreen);
+
+    var promptScreen = textInput(
+      "prompt-screen",
+      "bg-sky-500",
+      "What is your prompt?",
+      "assets/guides/placeholder_guide.png",
+      "e.g. How are you finding the social?",
+      function (providedPrompt) {
+        localStorage.setItem("providedPrompt", providedPrompt);
+        console.log("Prompt updated to:", providedPrompt);
+        var formScreen = form();
+        body.appendChild(formScreen);
+        show(formScreen);
+      }
+    );
+    body.appendChild(promptScreen);
     body.appendChild(locationScreen);
-    body.appendChild(formScreen);
+    body.appendChild(googleFormUrlScreen);
   </script>
 </html>
