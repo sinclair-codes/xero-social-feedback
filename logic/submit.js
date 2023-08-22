@@ -3,7 +3,7 @@ function getRadioInput(emojiName) {
   return document.getElementById(emojiName);
 }
 
-async function submit(googleFormId, emojiName) {
+async function submit(googleFormId, emojiName, prompt) {
   if (isCurrentlySubmitting) {
     return; // Only submit one response at a time.
   }
@@ -19,6 +19,7 @@ async function submit(googleFormId, emojiName) {
     `&entry.1633997278=${selectedEmojiRadioInput.value}`, // Happiness Score
     `&entry.2128993084=${createOrRetrieveUUID()}`, // Device Fingerprint
     `&entry.202822596=${localStorage.getItem("selectedLocation")}`, // Location
+    `&entry.547368457=${prompt}`, // Prompt
   ];
   console.log("Submitting form with fields:", googleFormFields);
   var url = prefix + googleFormFields.join("");

@@ -41,7 +41,7 @@
     }
     var params = new URLSearchParams(window.location.search)
     var promptString = params.get("prompt")
-    var googleFormUrl = params.get("googleFormUrl")
+        var googleFormUrl = params.get("googleFormUrl")
     // Extract the value using a regular expression
     var googleFormId = extractGoogleFormId(googleFormUrl)
     
@@ -60,7 +60,7 @@
       "bg-sky-100"
     );
     
-    var formScreen = form(googleFormId, promptString);
+    var formScreen = form(googleFormId, prompt);
 
     var body = document.getElementsByTagName("body")[0];
     
